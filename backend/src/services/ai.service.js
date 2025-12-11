@@ -12,7 +12,7 @@ async function generateText(content) {
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
+      model: "gemini-1.5-flash",
       contents: [
         {
           role: "user",
@@ -20,7 +20,7 @@ async function generateText(content) {
         },
       ],
       temperature: 0.7,
-      maxOutputTokens: 512,
+      maxOutputTokens: 2048,
     });
 
     // DEBUG: uncomment during development to see exact response
