@@ -11,7 +11,7 @@ const app = express();
 
 app.use(cors({
   origin: "http://localhost:5173",
-  
+
   credentials: true,
 }));
 
@@ -30,8 +30,5 @@ app.use("/api/resume", resumeRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/ai", aiRoutes);
 
-app.get("*name",(req,res)=>{
-    res.sendFile(path.join(__dirname,'../public/index.html'))
-})
 
 module.exports = app;
