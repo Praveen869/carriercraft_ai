@@ -106,4 +106,3 @@ Tasks:
 }
 
 module.exports = { optimizeResume: optimizeSkills, keywordMatch };
-

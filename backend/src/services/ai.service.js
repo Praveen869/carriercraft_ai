@@ -1,48 +1,44 @@
 // services/ai.service.js
-const { GoogleGenAI } = require("@google/genai");
+const Groq = require("groq-sdk");
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
 });
 
-async function generateText(content) {
-  if (!content || typeof content !== "string") {
-    throw new Error("Prompt must be a non-empty string");
-  }
+async function generateText(prompt) {
+  if (!prompt) throw new Error("Prompt is required");
 
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash",
-      contents: [
+    const completion = await groq.chat.completions.create({
+      model: "llama-3.1-8b-instant", // 🔥 best for ATS / reasoning
+      messages: [
+        {
+          role: "system",
+          content: `
+You are JobScribe AI, an ATS-focused resume optimization engine.
+Return ONLY valid JSON when JSON is requested.
+Be factual, concise, and ATS-oriented.
+Never hallucinate or add fluff.
+          `,
+        },
         {
           role: "user",
-          parts: [{ text: content }],
+          content: prompt,
         },
       ],
-      temperature: 0.7,
-      maxOutputTokens: 2048,
+      temperature: 0.4,
     });
 
-    // DEBUG: uncomment during development to see exact response
-    // console.log("AI raw response:", JSON.stringify(response, null, 2));
+    const text = completion.choices[0]?.message?.content;
 
-    // Try multiple possible response shapes (robust extraction)
-    const maybeText =
-      response?.output_text ||
-      response?.output?.[0]?.content?.[0]?.text ||
-      response?.output?.[0]?.content?.parts?.[0]?.text ||
-      response?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      response?.candidates?.[0]?.content?.[0]?.text;
-
-    if (!maybeText || typeof maybeText !== "string") {
-      console.error("Unable to extract text from AI response:", JSON.stringify(response, null, 2));
-      throw new Error("AI returned no usable text");
+    if (!text) {
+      throw new Error("Groq returned empty response");
     }
 
-    return maybeText;
+    return text;
   } catch (err) {
-    console.error("Error generating text:", err);
-    throw err; // re-throw so caller handles it (don't return undefined)
+    console.error("Groq error:", err);
+    throw err;
   }
 }
 
