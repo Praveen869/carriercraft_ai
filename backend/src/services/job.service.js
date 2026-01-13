@@ -7,13 +7,22 @@ const axios = require("axios");
  * @param {string} location - Location (city, country or "remote")
  * @returns {Promise<Array>} - Array of job objects
  */
-const fetchJobs = async (query = "", location = "") => {
+const fetchJobs = async (query = "", location = "remote") => {
   try {
+    // ✅ Guard: empty query
+    if (!query) return [];
+
+    // ✅ Guard: API key check
+    if (!process.env.JOOBLE_API_KEY) {
+      console.error("JOOBLE_API_KEY is missing");
+      return [];
+    }
+
     const response = await axios.post(
       `https://jooble.org/api/${process.env.JOOBLE_API_KEY}`,
       {
         keywords: query,
-        location: location,
+        location: location || "remote",
       },
       {
         headers: { "Content-Type": "application/json" },
@@ -21,22 +30,34 @@ const fetchJobs = async (query = "", location = "") => {
       }
     );
 
-    // Format response data
-    const jobs = (response.data.jobs || []).map((job) => ({
-      title: job.title,
-      company: job.company,
-      location: job.location,
+    const jobs = response.data?.jobs;
+
+    // ✅ Guard: unexpected response
+    if (!Array.isArray(jobs)) {
+      console.error("Unexpected Jooble response:", response.data);
+      return [];
+    }
+
+    // ✅ Normalize job data
+    return jobs.map((job) => ({
+      title: job.title || "N/A",
+      company: job.company || "N/A",
+      location: job.location || location,
       type: job.type || "N/A",
-      link: job.link,
-      snippet: job.snippet,
-      updated: job.updated,
+      link: job.link || "",
+      snippet: job.snippet || "",
+      updated: job.updated || "",
       salary: job.salary || "Not specified",
     }));
-
-    return jobs;
   } catch (error) {
-    console.error("Error fetching jobs via Jooble:", error.message);
-    throw new Error("Failed to fetch jobs from Jooble");
+    // 🔥 MOST IMPORTANT FIX: DO NOT THROW
+    console.error(
+      "Jooble fetch failed:",
+      error.response?.data || error.message
+    );
+
+    // ✅ Return empty array instead of crashing backend
+    return [];
   }
 };
 
