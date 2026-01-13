@@ -21,7 +21,6 @@ app.use(express.json()); // JSON parse ke liye
 app.use(express.json({ limit: "10mb" }));  // REQUIRED
 app.use(express.urlencoded({ extended: true })); // form data ke liye
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname,'../public')))
 
 
 // Routes

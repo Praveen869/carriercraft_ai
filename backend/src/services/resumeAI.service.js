@@ -1,30 +1,41 @@
 const { generateText } = require("./ai.service");
 
 // ----------------- Helper: safely parse AI JSON -----------------
-function safeParseJSON(raw) {
-  if (!raw || typeof raw !== "string")
-    throw new Error("AI returned empty response");
-
-  let clean = raw
-    .replace(/```json/i, "")
-    .replace(/```/g, "")
-    .trim();
-
-  const firstBrace = clean.indexOf("{");
-  const lastBrace = clean.lastIndexOf("}");
-  if (firstBrace === -1 || lastBrace === -1 || lastBrace <= firstBrace) {
-    console.error("AI returned malformed JSON:", raw);
-    throw new Error("Invalid AI JSON response");
-  }
-  clean = clean.slice(firstBrace, lastBrace + 1);
-
+function safeParseJSON(text) {
   try {
-    return JSON.parse(clean);
-  } catch (err) {
-    console.error("AI returned invalid JSON after cleaning:", clean);
+    if (!text || typeof text !== "string") {
+      throw new Error("Empty AI response");
+    }
+
+    // 1. Remove markdown code fences ```json ... ```
+    let cleaned = text
+      .replace(/```json/gi, "")
+      .replace(/```/g, "")
+      .trim();
+
+    // 2. Remove JS-style comments
+    cleaned = cleaned
+      .replace(/\/\/.*$/gm, "")
+      .replace(/\/\*[\s\S]*?\*\//g, "")
+      .trim();
+
+    // 3. Extract FIRST valid JSON object only
+    const firstBrace = cleaned.indexOf("{");
+    const lastBrace = cleaned.lastIndexOf("}");
+
+    if (firstBrace === -1 || lastBrace === -1) {
+      throw new Error("No JSON object found in AI response");
+    }
+
+    const jsonOnly = cleaned.slice(firstBrace, lastBrace + 1);
+
+    return JSON.parse(jsonOnly);
+  } catch (error) {
+    console.error("AI returned invalid JSON after cleaning:\n", text);
     throw new Error("Invalid AI JSON response");
   }
 }
+
 
 // ----------------- JD ↔ Skills Optimization -----------------
 async function optimizeSkills(parsedSkills, jobDesc) {
