@@ -16,6 +16,6 @@ router.put("/:id", authMiddleware, updateJobStatus);
 router.delete("/:id", authMiddleware, deleteJob);
 
 // External job fetch
-router.get("/external",authMiddleware,getExternalJobs)
+router.get("/external", getExternalJobs)
 
 module.exports = router;
