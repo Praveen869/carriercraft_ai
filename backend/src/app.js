@@ -5,14 +5,14 @@ const resumeRoutes = require("./routes/resume.routes");
 const jobRoutes = require("./routes/job.routes");
 const aiRoutes = require("./routes/ai.routes");
 const cors = require("cors");
-const path=require('path')
+const path = require('path')
 const app = express();
 
 
 app.use(cors({
   origin: [
-  "http://localhost:5173",
-  "https://jobscibe-fui.vercel.app"
+    "http://localhost:5173",
+    "https://carriercraft-ai.vercel.app/"
   ],
 
   credentials: true,
