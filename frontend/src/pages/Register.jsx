@@ -33,7 +33,7 @@ function Register() {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/auth/register",
+        "/api/auth/register",
         {
           name: formData.name,
           email: formData.email,
@@ -55,22 +55,22 @@ function Register() {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 overflow-hidden px-4">
-      {/* 🔥 Animated gradient blobs in background */}
-      <div className="absolute -top-20 -left-20 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float-slow"></div>
-      <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"></div>
-      <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float-reverse"></div>
+    <div className="relative flex min-h-screen items-center justify-center bg-gradient-to-br from-[#EFF3FD] via-[#F4F7FF] to-[#E9EDF8] overflow-hidden px-4">
+      {/* Premium Dreamy Pastel Fluid Multi-Shade Gradient Blobs */}
+      <div className="absolute right-[-10%] top-[-10%] w-[55rem] h-[55rem] bg-gradient-to-tr from-[#C5CDFA]/40 via-[#D6DCFA]/50 to-[#FDE8E5]/30 rounded-full filter blur-3xl opacity-90 animate-float-slow"></div>
+      <div className="absolute left-[15%] top-[5%] w-[45rem] h-[45rem] bg-gradient-to-br from-[#E2DBFA]/50 via-[#E8E2FA]/50 to-[#D5EDFC]/40 rounded-full filter blur-3xl opacity-85 animate-float"></div>
+      <div className="absolute left-[-10%] bottom-[-10%] w-[40rem] h-[40rem] bg-gradient-to-r from-[#D5EDFC]/40 via-[#E8E2FA]/40 to-[#C5CDFA]/30 rounded-full filter blur-3xl opacity-75 animate-float-reverse"></div>
 
-      {/* 🔥 Animated Register card */}
-      <div className="w-full max-w-md bg-white shadow-2xl rounded-3xl p-8 sm:p-10 relative z-10 transform transition-all duration-700 ease-out animate-fade-in-up">
-        <h2 className="text-center text-3xl font-extrabold text-purple-700 mb-6">
-          Create Your Jobscribe Account
+      {/* Glassmorphic Register card */}
+      <div className="w-full max-w-md bg-white/60 border border-white/80 shadow-2xl backdrop-blur-md rounded-3xl p-8 sm:p-10 relative z-10 transform transition-all duration-700 ease-out animate-fade-in-up">
+        <h2 className="text-center text-3xl font-black text-[#7C3AED] mb-8">
+          Register Account
         </h2>
 
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-7" onSubmit={handleSubmit}>
           {/* Full Name */}
           <div className="relative">
-            <label className="absolute -top-3 left-3 bg-white px-1 text-sm font-medium text-purple-600">
+            <label className="absolute -top-2.5 left-3 bg-white/95 border border-purple-100/50 px-2 py-0.5 rounded-md text-[10px] font-bold text-[#7C3AED]">
               Full Name
             </label>
             <input
@@ -79,14 +79,14 @@ function Register() {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-purple-400 outline-none transition"
+              className="w-full rounded-xl border border-slate-200 bg-white/85 text-slate-800 px-4 py-3.5 focus:ring-2 focus:ring-purple-400 focus:border-purple-400 outline-none transition text-sm"
               placeholder="John Doe"
             />
           </div>
 
           {/* Email */}
           <div className="relative">
-            <label className="absolute -top-3 left-3 bg-white px-1 text-sm font-medium text-purple-600">
+            <label className="absolute -top-2.5 left-3 bg-white/95 border border-purple-100/50 px-2 py-0.5 rounded-md text-[10px] font-bold text-[#7C3AED]">
               Email
             </label>
             <input
@@ -95,14 +95,14 @@ function Register() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-purple-400 outline-none transition"
+              className="w-full rounded-xl border border-slate-200 bg-white/85 text-slate-800 px-4 py-3.5 focus:ring-2 focus:ring-purple-400 focus:border-purple-400 outline-none transition text-sm"
               placeholder="your@email.com"
             />
           </div>
 
           {/* Password */}
           <div className="relative">
-            <label className="absolute -top-3 left-3 bg-white px-1 text-sm font-medium text-purple-600">
+            <label className="absolute -top-2.5 left-3 bg-white/95 border border-purple-100/50 px-2 py-0.5 rounded-md text-[10px] font-bold text-[#7C3AED]">
               Password
             </label>
             <input
@@ -112,14 +112,14 @@ function Register() {
               onChange={handleChange}
               required
               minLength="6"
-              className="w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-purple-400 outline-none transition"
+              className="w-full rounded-xl border border-slate-200 bg-white/85 text-slate-800 px-4 py-3.5 focus:ring-2 focus:ring-purple-400 focus:border-purple-400 outline-none transition text-sm"
               placeholder="••••••••"
             />
           </div>
 
           {/* Confirm Password */}
           <div className="relative">
-            <label className="absolute -top-3 left-3 bg-white px-1 text-sm font-medium text-purple-600">
+            <label className="absolute -top-2.5 left-3 bg-white/95 border border-purple-100/50 px-2 py-0.5 rounded-md text-[10px] font-bold text-[#7C3AED]">
               Confirm Password
             </label>
             <input
@@ -129,19 +129,19 @@ function Register() {
               onChange={handleChange}
               required
               minLength="6"
-              className="w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-purple-400 outline-none transition"
+              className="w-full rounded-xl border border-slate-200 bg-white/85 text-slate-800 px-4 py-3.5 focus:ring-2 focus:ring-purple-400 focus:border-purple-400 outline-none transition text-sm"
               placeholder="••••••••"
             />
           </div>
 
           {/* Error/Success messages */}
           {error && (
-            <p className="text-sm text-red-600 bg-red-100 p-2 rounded-md animate-pulse">
+            <p className="text-xs text-red-650 bg-red-50 border border-red-150 p-3 rounded-xl animate-pulse font-medium">
               {error}
             </p>
           )}
           {success && (
-            <p className="text-sm text-green-600 bg-green-100 p-2 rounded-md animate-pulse">
+            <p className="text-xs text-green-650 bg-green-50 border border-green-150 p-3 rounded-xl animate-pulse font-medium">
               {success}
             </p>
           )}
@@ -150,17 +150,17 @@ function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl shadow-lg hover:from-purple-700 hover:to-pink-700 transition transform hover:scale-105"
+            className="w-full py-3.5 bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold rounded-xl shadow-sm transition duration-150 ease-in-out transform active:scale-[0.98] cursor-pointer"
           >
             {loading ? "Registering..." : "Register"}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-600">
+        <p className="mt-6 text-center text-sm text-slate-600">
           Already have an account?{" "}
           <Link
             to="/login"
-            className="text-purple-600 font-medium hover:underline"
+            className="text-[#2563EB] font-bold hover:underline"
           >
             Login
           </Link>

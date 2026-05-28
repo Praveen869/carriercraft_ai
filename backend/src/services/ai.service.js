@@ -10,7 +10,7 @@ async function generateText(prompt) {
 
   try {
     const completion = await groq.chat.completions.create({
-      model: "llama-3.1-8b-instant", // 🔥 best for ATS / reasoning
+      model: "qwen/qwen3-32b", // 🔥 high quality reasoning & coding
       messages: [
         {
           role: "system",

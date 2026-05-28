@@ -1,5 +1,5 @@
 {
-  "name": "jobscibe",
+  "name": "careercraft-ai-backend",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -26,6 +26,7 @@
     "mongoose": "^8.18.0",
     "multer": "^2.0.2",
     "node-fetch": "^2.7.0",
-    "pdf-parse": "^1.1.1"
+    "pdf-parse": "^1.1.1",
+    "pdfkit": "^0.18.0"
   }
 }

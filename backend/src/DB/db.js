@@ -4,8 +4,8 @@ mongoose.connect(process.env.MONGODB_URL)
 .then(()=>{
     console.log("connected to db");
     
-}).catch(()=>{
-    console.log(err);
+}).catch((err)=>{
+    console.error("MongoDB Connection Error: ", err);
     
 })
 }

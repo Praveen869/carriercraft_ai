@@ -1,4 +1,4 @@
-const { optimizeResume, keywordMatch } = require("../services/resumeAI.service");
+const { optimizeResume, keywordMatch, suggestJobs } = require("../services/resumeAI.service");
 
 const optimizeResumeController = async (req, res) => {
   try {
@@ -35,4 +35,22 @@ const keywordMatchController = async (req, res) => {
   }
 };
 
-module.exports = { optimizeResumeController, keywordMatchController };
+const suggestJobsController = async (req, res) => {
+  try {
+    const { parsedSkills } = req.body;
+
+    if (!parsedSkills || !Array.isArray(parsedSkills)) {
+      return res.status(400).json({
+        error: "parsedSkills array is required",
+      });
+    }
+
+    const result = await suggestJobs(parsedSkills);
+    res.json(result);
+  } catch (err) {
+    console.error("Suggest Jobs Error:", err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+module.exports = { optimizeResumeController, keywordMatchController, suggestJobsController };

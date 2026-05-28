@@ -5,12 +5,12 @@ const mammoth = require("mammoth");
 const skillsList = [
   "JavaScript","TypeScript","Python","Java","C","C++","C#","Go","Rust","Ruby","Kotlin","Swift","PHP","Scala","Perl","R","MATLAB","Dart","Haskell","Elixir","F#","Lua","Julia","Shell","PowerShell","VB.NET",
   "React","Redux","Next.js","Vue.js","Angular","Svelte","Ember.js","Backbone.js","jQuery","Bootstrap","Tailwind","Material UI","Chakra UI","Ant Design","Sass","Less","CSS","HTML","React Native","Flutter","SwiftUI","Jetpack Compose",
-  "Node.js","Express","NestJS","Django","Flask","Spring","Spring Boot","FastAPI","Laravel","Rails","ASP.NET","GraphQL","REST API","Socket.IO","Microservices","Serverless","Firebase Functions","AWS Lambda",
+  "Node.js","Express","NestJS","Django","Flask","Spring","Spring Boot","FastAPI","Laravel","Rails","ASP.NET","GraphQL","REST API","Socket.IO","Microservices","Serverless","Firebase Functions","AWS Lambda","WebSockets","JWT",
   "MongoDB","MySQL","PostgreSQL","SQL Server","SQLite","Redis","Cassandra","OracleDB","MariaDB","DynamoDB","Neo4j","ElasticSearch","InfluxDB","Firebase Realtime DB","Firebase Firestore","CockroachDB","BigQuery",
-  "AWS","Azure","GCP","Docker","Kubernetes","Terraform","Ansible","Chef","Puppet","Jenkins","CircleCI","GitHub Actions","Linux","Nginx","Apache",
-  "Machine Learning","Deep Learning","AI","TensorFlow","PyTorch","Scikit-learn","Keras","Pandas","NumPy","Matplotlib","Seaborn","OpenCV","NLP","HuggingFace","FastText","XGBoost","LightGBM","CatBoost",
+  "AWS","Azure","GCP","Docker","Kubernetes","Terraform","Ansible","Chef","Puppet","Jenkins","CircleCI","GitHub Actions","Linux","Nginx","Apache","Vercel","Render","Railway",
+  "Machine Learning","Deep Learning","AI","TensorFlow","PyTorch","Scikit-learn","Keras","Pandas","NumPy","Matplotlib","Seaborn","OpenCV","NLP","HuggingFace","FastText","XGBoost","LightGBM","CatBoost","Jupyter Notebook",
   "JUnit","TestNG","Selenium","Cypress","Jest","Mocha","Chai","Playwright","PyTest","Karma","Enzyme","Mockito","Cucumber","Postman","SoapUI","LoadRunner","JMeter",
-  "Git","GitHub","GitLab","Bitbucket","SVN","Agile","Scrum","Kanban","JIRA","Trello","Asana","Figma","Wireframing","System Design","MongoDB","framer motion",
+  "Git","GitHub","GitLab","Bitbucket","SVN","Agile","Scrum","Kanban","JIRA","Trello","Asana","Figma","Wireframing","System Design","MongoDB","framer motion","GitLab CI/CD",
   "Pinecone",     
   "Weaviate",      
   "Milvus",        
@@ -54,12 +54,22 @@ function extractSkills(text) {
   const sectionMatch = text.match(skillsSectionRegex);
   let skillsText = sectionMatch ? sectionMatch[0] : text;
 
-  // Split by comma, slash, bullets, multiple spaces
-  let rawSkills = skillsText
-    .replace(/[-•]/g, " ")
-    .split(/[,\/]|(?=[A-Z][a-z]+)| {2,}/)
-    .map(s => s.trim())
-    .filter(Boolean);
+  // Clean bullet points at start of line or space-hyphen-space
+  const cleanedText = skillsText
+    .replace(/^\s*[-•*]\s+/gm, "\n")
+    .replace(/\s+[-•*]\s+/g, "\n");
+
+  let rawSkills = [];
+  const lines = cleanedText.split(/[\n,;|\/]/);
+  lines.forEach(line => {
+    if (line.includes(":")) {
+      const parts = line.split(":");
+      parts.forEach(p => rawSkills.push(p.trim()));
+    } else {
+      rawSkills.push(line.trim());
+    }
+  });
+  rawSkills = rawSkills.filter(Boolean);
 
 
  const aliasMap = {
@@ -274,7 +284,20 @@ function extractSkills(text) {
   "system design": "System Design",
   "vs code": "VS Code",
   "vscode": "VS Code",
-  "sql": "SQL"
+  "sql": "SQL",
+  "html5": "HTML",
+  "css3": "CSS",
+  "websockets": "WebSockets",
+  "jwt": "JWT",
+  "vercel": "Vercel",
+  "render": "Render",
+  "railway": "Railway",
+  "gitlab ci/cd": "GitLab CI/CD",
+  "jupyter notebook": "Jupyter Notebook",
+  "jupyter": "Jupyter Notebook",
+  "scikit-learn": "Scikit-learn",
+  "numpy": "NumPy",
+  "rest apis": "REST API"
 };
 
 
