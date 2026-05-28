@@ -2,7 +2,7 @@
   <img src="./careercraft_banner.png" alt="CareerCraft AI Banner" width="100%">
 </p>
 
-<h1 align="center">🚀 CareerCraft AI (JobScribe)</h1>
+<h1 align="center">🚀 CareerCraft AI</h1>
 
 <p align="center">
   <strong>Supercharge your job search with a next-generation, AI-driven resume parsing, optimization, and job matching platform.</strong>
