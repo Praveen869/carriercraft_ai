@@ -12,7 +12,7 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://carriercraft-ai.vercel.app/"
+    "https://carriercraft-ai.vercel.app"
   ],
 
   credentials: true,
